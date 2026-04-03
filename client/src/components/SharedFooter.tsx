@@ -29,7 +29,7 @@ export default function SharedFooter() {
         <li><Link href="/discover">Discover</Link></li>
         <li><Link href="/brand">Brand Kit</Link></li>
         <li><a href="https://discord.gg" target="_blank" rel="noopener noreferrer">Discord</a></li>
-        <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+        <li><a href="https://x.com/_gwapspot?s=21" target="_blank" rel="noopener noreferrer">Twitter</a></li>
       </ul>
       <div className="shared-footer-copy">© 2026 DIMI. All rights reserved.</div>
     </footer>
