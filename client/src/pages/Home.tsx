@@ -50,28 +50,6 @@ export default function Home() {
 
   return (
     <>
-      {/* NAV */}
-      <nav>
-        <div className="logo">
-          DIMI<span>.</span>
-        </div>
-        <ul>
-          <li>
-            <a href="#pillars">Platform</a>
-          </li>
-          <li>
-            <a href="#daw">Integration</a>
-          </li>
-          <li>
-            <a href="#how">How It Works</a>
-          </li>
-          <li>
-            <a href="#cta" className="nav-cta">
-              Get Early Access
-            </a>
-          </li>
-        </ul>
-      </nav>
 
       {/* HERO */}
       <section className="hero">
@@ -696,25 +674,6 @@ export default function Home() {
         </p>
       </section>
 
-      {/* FOOTER */}
-      <footer>
-        <div className="footer-logo">DIMI</div>
-        <ul className="footer-links">
-          <li>
-            <a href="#">Platform</a>
-          </li>
-          <li>
-            <a href="#">Developers</a>
-          </li>
-          <li>
-            <a href="#">Discord</a>
-          </li>
-          <li>
-            <a href="#">Twitter</a>
-          </li>
-        </ul>
-        <div className="footer-copy">© 2026 DIMI. All rights reserved.</div>
-      </footer>
     </>
   );
 }
