@@ -14,10 +14,10 @@
   --border-bright: rgba(255,255,255,0.14);
   --text: #e8e8e8;
   --muted: #666;
-  --accent: #E8FF47;
+  --accent: #2EE62E;
   --accent2: #FF4D6D;
   --accent3: #47D4FF;
-  --accent-dim: rgba(232,255,71,0.12);
+  --accent-dim: rgba(46,230,46,0.12);
 }
 
 html { scroll-behavior: smooth; }
@@ -160,8 +160,8 @@ body::before {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(232,255,71,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,255,71,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(46,230,46,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46,230,46,0.03) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 60%, black 0%, transparent 100%);
 }
@@ -171,7 +171,7 @@ body::before {
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232,255,71,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(46,230,46,0.06) 0%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -251,7 +251,7 @@ body::before {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(232,255,71,0.3);
+  box-shadow: 0 8px 32px rgba(46,230,46,0.3);
 }
 
 .btn-ghost {
@@ -404,7 +404,7 @@ body::before {
 .track-item.active {
   color: var(--text);
   border-left-color: var(--accent);
-  background: rgba(232,255,71,0.04);
+  background: rgba(46,230,46,0.04);
 }
 
 .track-color {
@@ -622,7 +622,7 @@ section {
   font-family: 'Space Mono', monospace;
   font-size: 10px;
   color: var(--accent);
-  border: 1px solid rgba(232,255,71,0.3);
+  border: 1px solid rgba(46,230,46,0.3);
   padding: 4px 10px;
   border-radius: 2px;
   letter-spacing: 0.08em;
@@ -672,9 +672,9 @@ section {
 }
 
 .status-ready {
-  background: rgba(232,255,71,0.1);
+  background: rgba(46,230,46,0.1);
   color: var(--accent);
-  border: 1px solid rgba(232,255,71,0.2);
+  border: 1px solid rgba(46,230,46,0.2);
 }
 
 .status-soon {
@@ -784,7 +784,7 @@ section {
   font-family: 'Space Mono', monospace;
   font-size: 48px;
   font-weight: 700;
-  color: rgba(232,255,71,0.08);
+  color: rgba(46,230,46,0.08);
   line-height: 1;
   margin-bottom: 20px;
   letter-spacing: -0.04em;
@@ -824,7 +824,7 @@ section {
   padding: 32px;
 }
 
-.compare-card.good { border-color: rgba(232,255,71,0.2); }
+.compare-card.good { border-color: rgba(46,230,46,0.2); }
 .compare-card.bad { border-color: rgba(255,77,109,0.15); }
 
 .compare-badge {
@@ -838,9 +838,9 @@ section {
 }
 
 .badge-yes {
-  background: rgba(232,255,71,0.1);
+  background: rgba(46,230,46,0.1);
   color: var(--accent);
-  border: 1px solid rgba(232,255,71,0.2);
+  border: 1px solid rgba(46,230,46,0.2);
 }
 
 .badge-no {
@@ -884,7 +884,7 @@ section {
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232,255,71,0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(46,230,46,0.07) 0%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

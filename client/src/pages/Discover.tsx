@@ -10,14 +10,14 @@ import { useEffect, useRef, useState } from "react";
 const GENRES = ["All", "Trap", "R&B / Soul", "Afrobeats", "Lo-Fi", "Drill", "Boom Bap", "House"];
 
 const SESSIONS = [
-  { id: 1, title: "Midnite Bounce v3", producer: "PapiGwap", genre: "Trap / Soul", viewers: 1247, collaborators: 3, bpm: 142, live: true, color: "#E8FF47" },
+  { id: 1, title: "Midnite Bounce v3", producer: "PapiGwap", genre: "Trap / Soul", viewers: 1247, collaborators: 3, bpm: 142, live: true, color: "#2EE62E" },
   { id: 2, title: "Blue Hours", producer: "KayDee", genre: "R&B / Soul", viewers: 847, collaborators: 2, bpm: 95, live: true, color: "#47D4FF" },
   { id: 3, title: "Lagos Nights", producer: "Ayo Beats", genre: "Afrobeats", viewers: 623, collaborators: 4, bpm: 110, live: true, color: "#FF9F47" },
   { id: 4, title: "Concrete Dreams", producer: "Vex", genre: "Drill", viewers: 412, collaborators: 1, bpm: 140, live: true, color: "#FF4D6D" },
   { id: 5, title: "Sunset Tape", producer: "mellowmind", genre: "Lo-Fi", viewers: 389, collaborators: 2, bpm: 80, live: true, color: "#A47DFF" },
   { id: 6, title: "808 Cathedral", producer: "DRMTK", genre: "Trap", viewers: 298, collaborators: 3, bpm: 150, live: false, color: "#2EE62E" },
   { id: 7, title: "Phantom Keys", producer: "Noire", genre: "R&B / Soul", viewers: 276, collaborators: 1, bpm: 88, live: false, color: "#3DD6C8" },
-  { id: 8, title: "Dust & Gold", producer: "SampleKid", genre: "Boom Bap", viewers: 198, collaborators: 2, bpm: 92, live: false, color: "#E8FF47" },
+  { id: 8, title: "Dust & Gold", producer: "SampleKid", genre: "Boom Bap", viewers: 198, collaborators: 2, bpm: 92, live: false, color: "#2EE62E" },
   { id: 9, title: "Neon Drift", producer: "Zephyr", genre: "House", viewers: 167, collaborators: 1, bpm: 124, live: false, color: "#FF4D6D" },
 ];
 

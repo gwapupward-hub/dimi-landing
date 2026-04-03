@@ -157,7 +157,7 @@ export default function Home() {
             <div className="track-item active">
               <div
                 className="track-color"
-                style={{ background: "#E8FF47" }}
+                style={{ background: "#2EE62E" }}
               ></div>
               <span>Drums</span>
             </div>
@@ -200,7 +200,7 @@ export default function Home() {
                   style={{
                     left: "0%",
                     width: "30%",
-                    background: "#E8FF47",
+                    background: "#2EE62E",
                   }}
                 >
                   Kick Pattern
@@ -210,7 +210,7 @@ export default function Home() {
                   style={{
                     left: "32%",
                     width: "22%",
-                    background: "rgba(232,255,71,0.6)",
+                    background: "rgba(46,230,46,0.6)",
                   }}
                 >
                   Fill
@@ -220,7 +220,7 @@ export default function Home() {
                   style={{
                     left: "56%",
                     width: "40%",
-                    background: "#E8FF47",
+                    background: "#2EE62E",
                   }}
                 >
                   Loop A
@@ -307,7 +307,7 @@ export default function Home() {
 
         <div className="session-footer">
           <div className="avatar-stack">
-            <div className="avatar" style={{ background: "#E8FF47" }}>
+            <div className="avatar" style={{ background: "#2EE62E" }}>
               PG
             </div>
             <div className="avatar" style={{ background: "#47D4FF" }}>
@@ -436,7 +436,7 @@ export default function Home() {
               ></div>
               <div
                 className="plugin-topbar-dot"
-                style={{ background: "#E8FF47" }}
+                style={{ background: "#2EE62E" }}
               ></div>
               <div
                 className="plugin-topbar-dot"
