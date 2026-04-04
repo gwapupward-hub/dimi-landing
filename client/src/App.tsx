@@ -14,6 +14,8 @@ import Login from "./pages/Login";
 import OnboardingProfile from "./pages/OnboardingProfile";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ProfileGuard } from "./components/ProfileGuard";
+import Dashboard from "./pages/Dashboard";
+import { AppLayout } from "./components/AppLayout";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -34,7 +36,9 @@ function Router() {
       <Route path="/app">
         <ProtectedRoute>
           <ProfileGuard requireProfile={true}>
-            <Home />
+            <AppLayout>
+              <Dashboard />
+            </AppLayout>
           </ProfileGuard>
         </ProtectedRoute>
       </Route>
