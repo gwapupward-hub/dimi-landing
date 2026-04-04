@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { dimiRouter } from "./routers/dimi";
 import { authRouter } from "./routers/auth";
+import { profileRouter } from "./routers/profile";
 import { publicProcedure, router } from "./_core/trpc";
 
 export const appRouter = router({
@@ -18,6 +19,7 @@ export const appRouter = router({
       } as const;
     }),
   }),
+  profile: profileRouter,
   dimi: dimiRouter,
 });
 

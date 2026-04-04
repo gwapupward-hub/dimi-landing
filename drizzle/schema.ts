@@ -127,3 +127,22 @@ export const authSessions = mysqlTable("auth_sessions", {
 
 export type AuthSession = typeof authSessions.$inferSelect;
 export type InsertAuthSession = typeof authSessions.$inferInsert;
+
+/**
+ * DIMI Profiles table - stores user profile information
+ * Linked to authUsers for custom auth users
+ */
+export const profiles = mysqlTable("profiles", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(),
+  displayName: varchar("displayName", { length: 255 }).notNull(),
+  bio: text("bio"),
+  avatarUrl: varchar("avatarUrl", { length: 500 }),
+  creatorRole: varchar("creatorRole", { length: 100 }).default("producer").notNull(),
+  isProfileComplete: int("isProfileComplete").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Profile = typeof profiles.$inferSelect;
+export type InsertProfile = typeof profiles.$inferInsert;
