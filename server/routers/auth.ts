@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { createAuthUser, authenticateUser, createAuthSession, deleteAuthSession, getAuthUserByEmail, getAuthUserByUsername } from "../auth-db";
+import { profileExists } from "../profile-db";
 import { TRPCError } from "@trpc/server";
 
 const AUTH_COOKIE_NAME = "dimi_auth_token";
@@ -74,6 +75,9 @@ export const authRouter = router({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
 
+      // Check if user has completed profile
+      const hasProfile = await profileExists(user.id);
+
       return {
         success: true,
         user: {
@@ -81,6 +85,7 @@ export const authRouter = router({
           email: user.email,
           username: user.username,
         },
+        hasProfile,
       };
     }),
 
@@ -119,6 +124,9 @@ export const authRouter = router({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
 
+      // Check if user has completed profile
+      const hasProfile = await profileExists(user.id);
+
       return {
         success: true,
         user: {
@@ -126,6 +134,7 @@ export const authRouter = router({
           email: user.email,
           username: user.username,
         },
+        hasProfile,
       };
     }),
 

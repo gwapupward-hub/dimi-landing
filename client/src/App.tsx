@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import OnboardingProfile from "./pages/OnboardingProfile";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProfileGuard } from "./components/ProfileGuard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -25,12 +26,16 @@ function Router() {
       <Route path="/login" component={Login} />
       <Route path="/onboarding/profile">
         <ProtectedRoute>
-          <OnboardingProfile />
+          <ProfileGuard requireProfile={false}>
+            <OnboardingProfile />
+          </ProfileGuard>
         </ProtectedRoute>
       </Route>
       <Route path="/app">
         <ProtectedRoute>
-          <Home />
+          <ProfileGuard requireProfile={true}>
+            <Home />
+          </ProfileGuard>
         </ProtectedRoute>
       </Route>
       <Route path="/404" component={NotFound} />

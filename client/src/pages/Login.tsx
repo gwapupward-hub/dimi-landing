@@ -41,13 +41,17 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      await loginMutation.mutateAsync({
+      const result = await loginMutation.mutateAsync({
         emailOrUsername: formData.emailOrUsername,
         password: formData.password,
       });
 
-      // Redirect to app on success
-      navigate("/app");
+      // Redirect based on profile completion status
+      if (result.hasProfile) {
+        navigate("/app");
+      } else {
+        navigate("/onboarding/profile");
+      }
     } catch (error: any) {
       const message = error?.message || "Login failed";
       setErrors({ form: message });
