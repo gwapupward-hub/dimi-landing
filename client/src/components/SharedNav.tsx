@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function SharedNav() {
   const [location] = useLocation();
+  const { user, isAuthenticated, logout } = useAuth();
   const eqRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -23,6 +25,11 @@ export default function SharedNav() {
 
   const isActive = (path: string) => location === path;
 
+  const handleLogout = async () => {
+    await logout();
+    setMobileOpen(false);
+  };
+
   return (
     <nav className="shared-nav">
       <Link href="/" className="shared-nav-logo">
@@ -41,42 +48,85 @@ export default function SharedNav() {
       </button>
 
       <ul className={`shared-nav-links ${mobileOpen ? "open" : ""}`}>
-        <li>
-          <Link
-            href="/"
-            className={`shared-nav-link ${isActive("/") ? "active" : ""}`}
-            onClick={() => setMobileOpen(false)}
-          >
-            Landing
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/discover"
-            className={`shared-nav-link ${isActive("/discover") ? "active" : ""}`}
-            onClick={() => setMobileOpen(false)}
-          >
-            Discover
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/brand"
-            className={`shared-nav-link ${isActive("/brand") ? "active" : ""}`}
-            onClick={() => setMobileOpen(false)}
-          >
-            Brand Kit
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/#cta"
-            className="shared-nav-cta"
-            onClick={() => setMobileOpen(false)}
-          >
-            Get Early Access
-          </Link>
-        </li>
+        {isAuthenticated ? (
+          <>
+            <li>
+              <Link
+                href="/app"
+                className={`shared-nav-link ${isActive("/app") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                App
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/profile"
+                className={`shared-nav-link ${isActive("/profile") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="shared-nav-link"
+                style={{ background: "none", border: "none", cursor: "pointer" }}
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link
+                href="/"
+                className={`shared-nav-link ${isActive("/") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Landing
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/discover"
+                className={`shared-nav-link ${isActive("/discover") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Discover
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/brand"
+                className={`shared-nav-link ${isActive("/brand") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Brand Kit
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/login"
+                className="shared-nav-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/signup"
+                className="shared-nav-cta"
+                onClick={() => setMobileOpen(false)}
+              >
+                Sign Up
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

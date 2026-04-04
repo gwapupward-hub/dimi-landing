@@ -15,6 +15,13 @@
       "when": 1775272009788,
       "tag": "0001_slimy_centennial",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1775281335410,
+      "tag": "0002_curvy_human_robot",
+      "breakpoints": true
     }
   ]
 }

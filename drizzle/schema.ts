@@ -97,3 +97,33 @@ export const files = mysqlTable("files", {
 
 export type File = typeof files.$inferSelect;
 export type InsertFile = typeof files.$inferInsert;
+
+/**
+ * DIMI Auth Users table - stores custom email/password authentication
+ * Separate from OAuth users to support both auth methods
+ */
+export const authUsers = mysqlTable("auth_users", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  username: varchar("username", { length: 100 }).notNull().unique(),
+  passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AuthUser = typeof authUsers.$inferSelect;
+export type InsertAuthUser = typeof authUsers.$inferInsert;
+
+/**
+ * DIMI Auth Sessions table - stores session tokens for custom auth
+ */
+export const authSessions = mysqlTable("auth_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  token: varchar("token", { length: 500 }).notNull().unique(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AuthSession = typeof authSessions.$inferSelect;
+export type InsertAuthSession = typeof authSessions.$inferInsert;
