@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { dimiRouter } from "./routers/dimi";
 import { authRouter } from "./routers/auth";
 import { profileRouter } from "./routers/profile";
+import { roomRouter } from "./routers/room";
 import { publicProcedure, router } from "./_core/trpc";
 
 export const appRouter = router({
@@ -20,6 +21,7 @@ export const appRouter = router({
     }),
   }),
   profile: profileRouter,
+  room: roomRouter,
   dimi: dimiRouter,
 });
 

@@ -29,6 +29,13 @@
       "when": 1775282395183,
       "tag": "0003_rich_the_renegades",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1775286988808,
+      "tag": "0004_oval_supreme_intelligence",
+      "breakpoints": true
     }
   ]
 }

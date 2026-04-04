@@ -146,3 +146,20 @@ export const profiles = mysqlTable("profiles", {
 
 export type Profile = typeof profiles.$inferSelect;
 export type InsertProfile = typeof profiles.$inferInsert;
+
+/**
+ * DIMI Rooms table - stores collaboration room records
+ */
+export const rooms = mysqlTable("rooms", {
+  id: int("id").autoincrement().primaryKey(),
+  hostUserId: int("hostUserId").notNull(),
+  roomName: varchar("roomName", { length: 100 }).notNull(),
+  description: text("description"),
+  visibility: mysqlEnum("visibility", ["public", "private"]).default("private").notNull(),
+  status: mysqlEnum("status", ["idle", "live", "ended"]).default("idle").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Room = typeof rooms.$inferSelect;
+export type InsertRoom = typeof rooms.$inferInsert;

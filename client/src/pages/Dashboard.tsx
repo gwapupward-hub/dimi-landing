@@ -3,8 +3,10 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2, Plus, LogIn } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function Dashboard() {
+  const [, setLocation] = useLocation();
   const { user, loading: authLoading } = useAuth();
   const { data: profile, isLoading: profileLoading } =
     trpc.profile.me.useQuery();
@@ -102,7 +104,10 @@ export default function Dashboard() {
                   together in real time.
                 </p>
               </div>
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-medium">
+              <Button
+                onClick={() => setLocation("/app/rooms/create")}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium"
+              >
                 <Plus size={16} className="mr-2" />
                 Create Room
               </Button>

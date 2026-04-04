@@ -15,10 +15,11 @@ import OnboardingProfile from "./pages/OnboardingProfile";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ProfileGuard } from "./components/ProfileGuard";
 import Dashboard from "./pages/Dashboard";
+import CreateRoom from "./pages/CreateRoom";
+import RoomView from "./pages/RoomView";
 import { AppLayout } from "./components/AppLayout";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -38,6 +39,24 @@ function Router() {
           <ProfileGuard requireProfile={true}>
             <AppLayout>
               <Dashboard />
+            </AppLayout>
+          </ProfileGuard>
+        </ProtectedRoute>
+      </Route>
+      <Route path="/app/rooms/create">
+        <ProtectedRoute>
+          <ProfileGuard requireProfile={true}>
+            <AppLayout>
+              <CreateRoom />
+            </AppLayout>
+          </ProfileGuard>
+        </ProtectedRoute>
+      </Route>
+      <Route path="/app/rooms/:id">
+        <ProtectedRoute>
+          <ProfileGuard requireProfile={true}>
+            <AppLayout>
+              <RoomView />
             </AppLayout>
           </ProfileGuard>
         </ProtectedRoute>
