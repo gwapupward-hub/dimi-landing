@@ -61,6 +61,15 @@ export default function SharedNav() {
             </li>
             <li>
               <Link
+                href="/rooms"
+                className={`shared-nav-link ${isActive("/rooms") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Rooms
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/rights"
                 className={`shared-nav-link ${isActive("/rights") ? "active" : ""}`}
                 onClick={() => setMobileOpen(false)}
@@ -105,6 +114,15 @@ export default function SharedNav() {
                 onClick={() => setMobileOpen(false)}
               >
                 Discover
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/rooms"
+                className={`shared-nav-link ${isActive("/rooms") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Rooms
               </Link>
             </li>
             <li>

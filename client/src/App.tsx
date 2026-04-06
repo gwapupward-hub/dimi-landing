@@ -21,6 +21,7 @@ import RoomView from "./pages/RoomView";
 import { AppLayout } from "./components/AppLayout";
 import Rights from "./pages/Rights";
 import InvestorBrief from "./pages/InvestorBrief";
+import Rooms from "./pages/Rooms";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/discover" component={Discover} />
       <Route path="/session" component={Session} />
       <Route path="/brand" component={BrandKit} />
+      <Route path="/rooms" component={Rooms} />
       <Route path="/rights" component={Rights} />
       <Route path="/investor" component={InvestorBrief} />
       <Route path="/signup" component={SignUp} />

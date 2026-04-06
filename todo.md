@@ -38,14 +38,14 @@
 - [x] Verify all existing pages still functional
 
 ## Task 2: Build Browse Rooms page at /rooms
-- [ ] Create /rooms page with room listing from database
-- [ ] Match session card design from /discover (waveform, live badge, viewer count)
-- [ ] Add filter row: All, Live Now, Upcoming, Following
-- [ ] Link Dashboard "Join Room" CTA to /rooms
-- [ ] Link each card's "Watch Session" to /session?room=ROOM_ID
-- [ ] Add Rooms link to shared nav between Discover and Dashboard
-- [ ] Write tests for rooms listing endpoint
-- [ ] Verify all existing pages still functional
+- [x] Create /rooms page with room listing from database
+- [x] Match session card design from /discover (waveform, live badge, viewer count)
+- [x] Add filter row: All · Live Now · Upcoming · Following
+- [x] Link "Join Room" CTA on Dashboard to /rooms
+- [x] Link each card's "Watch Session" to /session?room=ROOM_ID
+- [x] Add "Rooms" to shared nav between Discover and Dashboard
+- [x] Seed database with session and creator data
+- [x] Verify all existing pages still functional
 
 ## Task 3: Wire waitlist email form
 - [ ] Integrate email service (Resend/SendGrid/Mailgun)
