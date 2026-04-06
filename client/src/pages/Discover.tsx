@@ -5,6 +5,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "wouter";
 
 /* ── DATA ── */
 const GENRES = ["All", "Trap", "R&B / Soul", "Afrobeats", "Lo-Fi", "Drill", "Boom Bap", "House"];
@@ -162,6 +163,7 @@ export default function Discover() {
 
 /* ── SESSION CARD ── */
 function SessionCard({ session, onPlay }: { session: typeof SESSIONS[0]; onPlay: () => void }) {
+  const [, setLocation] = useLocation();
   const wfRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -180,8 +182,8 @@ function SessionCard({ session, onPlay }: { session: typeof SESSIONS[0]; onPlay:
   }, [session.color]);
 
   return (
-    <div className="sc-card reveal" onClick={onPlay}>
-      <div className="sc-thumb" ref={wfRef}>
+    <div className="sc-card reveal">
+      <div className="sc-thumb" ref={wfRef} onClick={onPlay}>
         {session.live && (
           <span className="sc-live-badge"><span className="sc-live-dot" />LIVE</span>
         )}
@@ -193,6 +195,35 @@ function SessionCard({ session, onPlay }: { session: typeof SESSIONS[0]; onPlay:
         <div className="sc-producer">
           {session.producer} · {session.collaborators} collaborator{session.collaborators > 1 ? "s" : ""}
         </div>
+        <button
+          onClick={() => setLocation('/session')}
+          style={{
+            width: '100%',
+            marginTop: '10px',
+            padding: '8px 12px',
+            background: 'rgba(46,230,46,0.1)',
+            border: '1px solid rgba(46,230,46,0.3)',
+            borderRadius: '4px',
+            color: '#2EE62E',
+            fontFamily: 'Geist Mono, monospace',
+            fontSize: '11px',
+            fontWeight: 500,
+            cursor: 'pointer',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            transition: 'all 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(46,230,46,0.2)';
+            e.currentTarget.style.boxShadow = '0 0 12px rgba(46,230,46,0.2)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(46,230,46,0.1)';
+            e.currentTarget.style.boxShadow = '';
+          }}
+        >
+          ▶ Watch Session
+        </button>
       </div>
     </div>
   );

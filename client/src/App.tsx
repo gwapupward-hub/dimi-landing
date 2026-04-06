@@ -9,6 +9,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Discover from "./pages/Discover";
 import BrandKit from "./pages/BrandKit";
+import Session from "./pages/Session";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import OnboardingProfile from "./pages/OnboardingProfile";
@@ -24,6 +25,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/discover" component={Discover} />
+      <Route path="/session" component={Session} />
       <Route path="/brand" component={BrandKit} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={Login} />
