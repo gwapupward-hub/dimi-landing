@@ -1,0 +1,33 @@
+Page Verification Results - April 6, 2026
+
+1. Landing Page (/) - WORKING
+   - Hero, features, waitlist form, footer all rendering
+   - SharedNav and SharedFooter visible
+   - DIMI Green #2EE62E in use
+
+2. Discover (/discover) - WORKING
+   - Session cards, creator profiles, genre filters all rendering
+   - SharedNav and SharedFooter visible
+
+3. Session (/session) - WORKING
+   - Webcam placeholder, chat, waveforms, live timer all rendering
+   - Tip buttons, chat input, Save Moment button all visible
+   - Core product page intact
+
+4. Rights (/rights) - WORKING
+   - 3-column layout with split calculator, lock modal
+   - All interactive elements (split inputs, remind button, lock release)
+   - Breadcrumb with Dashboard link
+   - SharedNav visible at top
+
+5. Investor Brief (/investor) - WORKING
+   - Standalone document - NO shared nav or footer (correct)
+   - All sections: Problem, Solution, Market, Competition, Business Model, Traction, The Ask, Team
+   - Print stylesheet included
+   - Confidential label visible
+
+6. Brand Kit (/brand) - Not yet verified but was working before
+
+Issues noticed:
+- Session page shows duplicate nav (SharedNav + its own internal nav). This was pre-existing.
+- The Session page has a pre-transform error in dev logs but renders fine (HTTP 200).

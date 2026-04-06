@@ -3,7 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import SharedNav from "@/components/SharedNav";
 import SharedFooter from "@/components/SharedFooter";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -19,6 +19,8 @@ import Dashboard from "./pages/Dashboard";
 import CreateRoom from "./pages/CreateRoom";
 import RoomView from "./pages/RoomView";
 import { AppLayout } from "./components/AppLayout";
+import Rights from "./pages/Rights";
+import InvestorBrief from "./pages/InvestorBrief";
 
 function Router() {
   return (
@@ -27,6 +29,8 @@ function Router() {
       <Route path="/discover" component={Discover} />
       <Route path="/session" component={Session} />
       <Route path="/brand" component={BrandKit} />
+      <Route path="/rights" component={Rights} />
+      <Route path="/investor" component={InvestorBrief} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={Login} />
       <Route path="/onboarding/profile">
@@ -70,14 +74,18 @@ function Router() {
 }
 
 function App() {
+  const [location] = useLocation();
+  // Investor Brief is a standalone document — no shared nav or footer
+  const isStandalonePage = location === "/investor";
+
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
-          <SharedNav />
+          {!isStandalonePage && <SharedNav />}
           <Router />
-          <SharedFooter />
+          {!isStandalonePage && <SharedFooter />}
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

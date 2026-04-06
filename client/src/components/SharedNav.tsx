@@ -61,6 +61,15 @@ export default function SharedNav() {
             </li>
             <li>
               <Link
+                href="/rights"
+                className={`shared-nav-link ${isActive("/rights") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Rights
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/profile"
                 className={`shared-nav-link ${isActive("/profile") ? "active" : ""}`}
                 onClick={() => setMobileOpen(false)}
@@ -105,6 +114,15 @@ export default function SharedNav() {
                 onClick={() => setMobileOpen(false)}
               >
                 Brand Kit
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/rights"
+                className={`shared-nav-link ${isActive("/rights") ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Rights
               </Link>
             </li>
             <li>

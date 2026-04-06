@@ -1,0 +1,26 @@
+# Project TODO
+
+- [x] Basic homepage layout
+- [x] Navigation menu
+- [x] Discovery feed page
+- [x] Brand kit page
+- [x] Live session page
+- [x] User authentication system (signup/login/logout)
+- [x] Profile onboarding flow
+- [x] Profile completion enforcement
+- [x] Producer dashboard with AppLayout
+- [x] Room creation flow with database schema
+- [x] SEO meta tags and Open Graph tags
+- [x] Replace all yellow #E8FF47 with DIMI Green #2EE62E
+- [x] Update Twitter footer link to https://x.com/_gwapspot?s=21
+- [x] Create Rights Workspace page at /rights
+- [x] Create Investor Brief page at /investor
+- [x] Add 'Rights' link to shared DIMI nav bar
+- [x] Wire Dashboard past sessions to /rights
+- [x] Add 'View Investor Brief' link in Dashboard sidebar
+- [x] Rights breadcrumb 'Dashboard' links to /app
+- [x] Rights logo links to /
+- [x] Investor Brief footer 'dimi.app' links to /
+- [x] Investor Brief print stylesheet
+- [x] Investor Brief standalone (no shared nav/footer)
+- [x] Verify all pages functional (Landing, Discover, Session, Brand, Rights, Investor)

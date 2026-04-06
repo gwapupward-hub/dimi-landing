@@ -3,7 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2, Plus, LogIn } from "lucide-react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 
 export default function Dashboard() {
   const [, setLocation] = useLocation();
@@ -42,7 +42,7 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Profile Summary Card */}
+      {/* Profile Summary Card + CTAs */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gray-900 border-gray-800 p-6 md:col-span-1">
           <div className="space-y-4">
@@ -87,6 +87,16 @@ export default function Dashboard() {
             >
               Edit Profile
             </Button>
+
+            {/* Investor Brief — subtle muted link at bottom of sidebar */}
+            <div className="pt-4 border-t border-gray-800">
+              <Link
+                href="/investor"
+                className="text-xs text-gray-500 hover:text-gray-400 transition-colors"
+              >
+                View Investor Brief
+              </Link>
+            </div>
           </div>
         </Card>
 
@@ -138,19 +148,63 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Placeholder Sections */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Recent Sessions */}
+      {/* Past Sessions Table */}
+      <section>
         <Card className="bg-gray-900 border-gray-800 p-6">
-          <h3 className="text-lg font-bold text-white mb-4">Recent Sessions</h3>
-          <div className="text-center py-8">
-            <p className="text-gray-400 text-sm">No sessions yet</p>
-            <p className="text-gray-500 text-xs mt-2">
-              Your recent sessions will appear here
-            </p>
+          <h3 className="text-lg font-bold text-white mb-4">Past Sessions</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-800">
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Session</th>
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Date</th>
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Duration</th>
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Status</th>
+                  <th className="text-right py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Rights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
+                  <td className="py-3 px-4 text-white">Dark Side of Midnight</td>
+                  <td className="py-3 px-4 text-gray-400">Apr 2, 2026</td>
+                  <td className="py-3 px-4 text-gray-400">2h 14m</td>
+                  <td className="py-3 px-4"><span className="text-xs px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50">Complete</span></td>
+                  <td className="py-3 px-4 text-right">
+                    <Link href="/rights" className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
+                      Rights Workspace →
+                    </Link>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
+                  <td className="py-3 px-4 text-white">Concrete Dreams v2</td>
+                  <td className="py-3 px-4 text-gray-400">Mar 28, 2026</td>
+                  <td className="py-3 px-4 text-gray-400">1h 47m</td>
+                  <td className="py-3 px-4"><span className="text-xs px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50">Complete</span></td>
+                  <td className="py-3 px-4 text-right">
+                    <Link href="/rights" className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
+                      Rights Workspace →
+                    </Link>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
+                  <td className="py-3 px-4 text-white">Neon Drift</td>
+                  <td className="py-3 px-4 text-gray-400">Mar 22, 2026</td>
+                  <td className="py-3 px-4 text-gray-400">3h 05m</td>
+                  <td className="py-3 px-4"><span className="text-xs px-2 py-0.5 rounded-full bg-yellow-900/30 text-yellow-400 border border-yellow-900/50">Draft</span></td>
+                  <td className="py-3 px-4 text-right">
+                    <Link href="/rights" className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
+                      Rights Workspace →
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </Card>
+      </section>
 
+      {/* Placeholder Sections */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Live Activity */}
         <Card className="bg-gray-900 border-gray-800 p-6">
           <h3 className="text-lg font-bold text-white mb-4">Live Activity</h3>
