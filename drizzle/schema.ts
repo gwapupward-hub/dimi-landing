@@ -163,3 +163,46 @@ export const rooms = mysqlTable("rooms", {
 
 export type Room = typeof rooms.$inferSelect;
 export type InsertRoom = typeof rooms.$inferInsert;
+
+/**
+ * DIMI Releases table - stores release/rights workspace data linked to sessions
+ */
+export const releases = mysqlTable("releases", {
+  id: int("id").autoincrement().primaryKey(),
+  sessionId: int("sessionId").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  genre: varchar("genre", { length: 100 }),
+  bpm: int("bpm"),
+  musicalKey: varchar("musicalKey", { length: 20 }),
+  duration: varchar("duration", { length: 20 }),
+  status: mysqlEnum("status", ["draft", "pending_signatures", "all_signed", "locked"]).default("draft").notNull(),
+  lockedAt: timestamp("lockedAt"),
+  proofHash: varchar("proofHash", { length: 128 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Release = typeof releases.$inferSelect;
+export type InsertRelease = typeof releases.$inferInsert;
+
+/**
+ * DIMI Release Contributors table - stores contributor splits and signature status
+ */
+export const releaseContributors = mysqlTable("release_contributors", {
+  id: int("id").autoincrement().primaryKey(),
+  releaseId: int("releaseId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  handle: varchar("handle", { length: 255 }),
+  role: varchar("role", { length: 100 }).notNull(),
+  splitPercent: int("splitPercent").default(0).notNull(),
+  hasSigned: int("hasSigned").default(0).notNull(),
+  signedAt: timestamp("signedAt"),
+  avatarColor: varchar("avatarColor", { length: 7 }).default("#2EE62E").notNull(),
+  avatarInitials: varchar("avatarInitials", { length: 4 }).default("??").notNull(),
+  isHost: int("isHost").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ReleaseContributor = typeof releaseContributors.$inferSelect;
+export type InsertReleaseContributor = typeof releaseContributors.$inferInsert;

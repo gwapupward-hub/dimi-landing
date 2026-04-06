@@ -11,6 +11,10 @@ export default function Dashboard() {
   const { data: profile, isLoading: profileLoading } =
     trpc.profile.me.useQuery();
 
+  // Fetch real sessions from DB
+  const { data: sessions, isLoading: sessionsLoading } =
+    trpc.dimi.sessions.list.useQuery();
+
   if (authLoading || profileLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -139,6 +143,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="w-full border-blue-900 text-blue-400 hover:text-blue-300 hover:bg-blue-900/20"
+                onClick={() => setLocation("/rooms")}
               >
                 <LogIn size={16} className="mr-2" />
                 Browse Rooms
@@ -157,46 +162,49 @@ export default function Dashboard() {
               <thead>
                 <tr className="border-b border-gray-800">
                   <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Session</th>
-                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Date</th>
-                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Duration</th>
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Genre</th>
+                  <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">BPM</th>
                   <th className="text-left py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Status</th>
                   <th className="text-right py-3 px-4 text-gray-500 font-medium text-xs uppercase tracking-wider">Rights</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
-                  <td className="py-3 px-4 text-white">Dark Side of Midnight</td>
-                  <td className="py-3 px-4 text-gray-400">Apr 2, 2026</td>
-                  <td className="py-3 px-4 text-gray-400">2h 14m</td>
-                  <td className="py-3 px-4"><span className="text-xs px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50">Complete</span></td>
-                  <td className="py-3 px-4 text-right">
-                    <Link href="/rights" className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
-                      Rights Workspace →
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
-                  <td className="py-3 px-4 text-white">Concrete Dreams v2</td>
-                  <td className="py-3 px-4 text-gray-400">Mar 28, 2026</td>
-                  <td className="py-3 px-4 text-gray-400">1h 47m</td>
-                  <td className="py-3 px-4"><span className="text-xs px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50">Complete</span></td>
-                  <td className="py-3 px-4 text-right">
-                    <Link href="/rights" className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
-                      Rights Workspace →
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
-                  <td className="py-3 px-4 text-white">Neon Drift</td>
-                  <td className="py-3 px-4 text-gray-400">Mar 22, 2026</td>
-                  <td className="py-3 px-4 text-gray-400">3h 05m</td>
-                  <td className="py-3 px-4"><span className="text-xs px-2 py-0.5 rounded-full bg-yellow-900/30 text-yellow-400 border border-yellow-900/50">Draft</span></td>
-                  <td className="py-3 px-4 text-right">
-                    <Link href="/rights" className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
-                      Rights Workspace →
-                    </Link>
-                  </td>
-                </tr>
+                {sessionsLoading ? (
+                  <tr>
+                    <td colSpan={5} className="py-8 text-center text-gray-500">
+                      <Loader2 className="w-5 h-5 animate-spin inline-block mr-2" />
+                      Loading sessions...
+                    </td>
+                  </tr>
+                ) : sessions && sessions.length > 0 ? (
+                  sessions.map((s) => (
+                    <tr key={s.id} className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
+                      <td className="py-3 px-4 text-white">{s.title}</td>
+                      <td className="py-3 px-4 text-gray-400">{s.genre ?? "—"}</td>
+                      <td className="py-3 px-4 text-gray-400">{s.bpm ?? "—"}</td>
+                      <td className="py-3 px-4">
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          s.isLive
+                            ? "bg-green-900/30 text-green-400 border border-green-900/50"
+                            : "bg-gray-800/50 text-gray-400 border border-gray-700"
+                        }`}>
+                          {s.isLive ? "Live" : "Complete"}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <Link href={`/rights?session=${s.id}`} className="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
+                          Rights Workspace →
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="py-8 text-center text-gray-500">
+                      No sessions yet. Create a room to start your first session.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

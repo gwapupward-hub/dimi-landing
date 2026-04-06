@@ -1,0 +1,20 @@
+Task 1 Verification — Rights Workspace wired to real session data
+================================================================
+
+/rights?session=1 — WORKING
+- Title: "Dark Side of Midnight" (from DB)
+- Genre: Trap / Soul, BPM: 142, Key: F# Minor, Duration: 3:47
+- 3 contributors loaded from DB: Metro Luz (50%), KayDee (30%), Ari Lennox (20%)
+- Signature status: Metro Luz ✓ Signed, KayDee ✓ Signed, Ari Lennox ⏳ Pending
+- Status chip: "2 of 3 Signed"
+- Sign button visible for Ari Lennox (pending contributor)
+- Split total bar: 100% (green)
+- Activity feed shows signed contributors with timestamps from DB
+- Lock banner: "1 Signature Remaining" (disabled)
+- All CSS preserved — exact same visual design
+
+Still need to verify:
+- /rights without session param shows empty state
+- /rights?session=2 shows different data
+- Sign button actually persists to DB
+- Split changes persist to DB

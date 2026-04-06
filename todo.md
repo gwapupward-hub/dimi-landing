@@ -24,3 +24,36 @@
 - [x] Investor Brief print stylesheet
 - [x] Investor Brief standalone (no shared nav/footer)
 - [x] Verify all pages functional (Landing, Discover, Session, Brand, Rights, Investor)
+
+## Task 1: Wire Rights Workspace to real session data
+- [x] Create releases table with title, BPM, key, genre, session reference
+- [x] Create release_contributors table with contributor data, split percentages, signature status
+- [x] Create tRPC endpoints for releases (get, update splits, sign)
+- [x] Update Rights page to accept ?session=SESSION_ID URL param
+- [x] Show empty workspace when no session ID present
+- [x] Dynamically generate contributor rows from database
+- [x] Save split percentages to database on change
+- [x] Persist signature status across page refreshes
+- [x] Write tests for release endpoints
+- [x] Verify all existing pages still functional
+
+## Task 2: Build Browse Rooms page at /rooms
+- [ ] Create /rooms page with room listing from database
+- [ ] Match session card design from /discover (waveform, live badge, viewer count)
+- [ ] Add filter row: All, Live Now, Upcoming, Following
+- [ ] Link Dashboard "Join Room" CTA to /rooms
+- [ ] Link each card's "Watch Session" to /session?room=ROOM_ID
+- [ ] Add Rooms link to shared nav between Discover and Dashboard
+- [ ] Write tests for rooms listing endpoint
+- [ ] Verify all existing pages still functional
+
+## Task 3: Wire waitlist email form
+- [ ] Integrate email service (Resend/SendGrid/Mailgun)
+- [ ] Send confirmation email on waitlist submission
+- [ ] Email subject: "You're on the DIMI waitlist."
+- [ ] Dark background, DIMI Green accent, Fraunces headline email body
+- [ ] Store email in database with timestamp
+- [ ] Handle duplicate submissions with friendly message
+- [ ] Button changes to "✓ You're in" and input disables on success
+- [ ] Write tests for waitlist endpoint
+- [ ] Verify all existing pages still functional
