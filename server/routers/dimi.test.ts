@@ -12,8 +12,19 @@ vi.mock("../db", () => ({
   createCreator: vi.fn(),
   addToWaitlist: vi.fn(),
   getWaitlist: vi.fn(),
+  getWaitlistByEmail: vi.fn(),
   createFile: vi.fn(),
   getFilesByUserId: vi.fn(),
+}));
+
+// Mock the email module
+vi.mock("../email", () => ({
+  sendWaitlistConfirmation: vi.fn().mockResolvedValue(true),
+}));
+
+// Mock the notification module
+vi.mock("../_core/notification", () => ({
+  notifyOwner: vi.fn().mockResolvedValue(true),
 }));
 
 // Mock the storage module
@@ -156,6 +167,8 @@ describe("DIMI Router", () => {
         notifiedAt: null,
       };
 
+      // No existing email (not a duplicate)
+      vi.mocked(db.getWaitlistByEmail).mockResolvedValue(null);
       vi.mocked(db.addToWaitlist).mockResolvedValue(mockWaitlistEntry);
 
       const caller = dimiRouter.createCaller({
@@ -169,11 +182,11 @@ describe("DIMI Router", () => {
         name: "Test User",
       });
 
-      expect(result).toEqual(mockWaitlistEntry);
-      expect(db.addToWaitlist).toHaveBeenCalledWith({
-        email: "test@example.com",
-        name: "Test User",
-      });
+      expect(result.success).toBe(true);
+      expect(result.duplicate).toBe(false);
+      expect(result.message).toContain("in");
+      expect(db.getWaitlistByEmail).toHaveBeenCalledWith("test@example.com");
+      expect(db.addToWaitlist).toHaveBeenCalled();
     });
 
     it("should validate email format", async () => {

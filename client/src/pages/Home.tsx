@@ -6,11 +6,17 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { trpc } from "@/lib/trpc";
 
 export default function Home() {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [emailValue, setEmailValue] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
   const emailInputRef = useRef<HTMLInputElement>(null);
   const emailBtnRef = useRef<HTMLButtonElement>(null);
+
+  const waitlistSignup = trpc.dimi.waitlist.signup.useMutation();
 
   // Scroll reveal observer
   useEffect(() => {
@@ -28,23 +34,36 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const handleEmailSubmit = () => {
+  const handleEmailSubmit = async () => {
     const input = emailInputRef.current;
     const btn = emailBtnRef.current;
     if (!input || !btn) return;
 
-    if (input.value.includes("@")) {
-      setEmailSubmitted(true);
-      input.value = "";
-      input.disabled = true;
-      btn.disabled = true;
-    } else {
+    const email = emailValue.trim();
+    if (!email || !email.includes("@")) {
       input.style.border = "1px solid var(--accent2)";
       input.placeholder = "Enter a valid email";
       setTimeout(() => {
         input.style.border = "";
         input.placeholder = "your@email.com";
       }, 2000);
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const result = await waitlistSignup.mutateAsync({ email });
+      setEmailSubmitted(true);
+      setStatusMessage(result.duplicate
+        ? "You're already on the waitlist. We'll be in touch."
+        : "You're in. Check your inbox."
+      );
+    } catch (error) {
+      console.error("Waitlist signup error:", error);
+      setStatusMessage("Something went wrong. Please try again.");
+      setTimeout(() => setStatusMessage(""), 3000);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -656,11 +675,32 @@ export default function Home() {
             ref={emailInputRef}
             type="email"
             placeholder="your@email.com"
+            value={emailValue}
+            onChange={(e) => setEmailValue(e.target.value)}
+            disabled={emailSubmitted}
+            onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}
           />
-          <button ref={emailBtnRef} onClick={handleEmailSubmit}>
-            {emailSubmitted ? "✓ You're in" : "Get Access →"}
+          <button
+            ref={emailBtnRef}
+            onClick={handleEmailSubmit}
+            disabled={emailSubmitted || submitting}
+          >
+            {emailSubmitted ? "✓ You're in" : submitting ? "Joining..." : "Get Access →"}
           </button>
         </div>
+
+        {statusMessage && (
+          <p
+            style={{
+              marginTop: "12px",
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "12px",
+              color: emailSubmitted ? "#2EE62E" : "var(--accent2)",
+            }}
+          >
+            {statusMessage}
+          </p>
+        )}
 
         <p
           style={{

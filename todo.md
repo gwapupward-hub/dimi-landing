@@ -48,12 +48,12 @@
 - [x] Verify all existing pages still functional
 
 ## Task 3: Wire waitlist email form
-- [ ] Integrate email service (Resend/SendGrid/Mailgun)
-- [ ] Send confirmation email on waitlist submission
-- [ ] Email subject: "You're on the DIMI waitlist."
-- [ ] Dark background, DIMI Green accent, Fraunces headline email body
-- [ ] Store email in database with timestamp
-- [ ] Handle duplicate submissions with friendly message
-- [ ] Button changes to "✓ You're in" and input disables on success
-- [ ] Write tests for waitlist endpoint
-- [ ] Verify all existing pages still functional
+- [x] Integrate email service (Resend/SendGrid/Mailgun)
+- [x] Send confirmation email on waitlist submission
+- [x] Email subject: "You're on the DIMI waitlist."
+- [x] Dark background, DIMI Green accent, Fraunces headline email body
+- [x] Store email in database with timestamp
+- [x] Handle duplicate submissions with friendly message
+- [x] Button changes to "✓ You're in" and input disables on success
+- [x] Write tests for waitlist endpoint
+- [x] Verify all existing pages still functional

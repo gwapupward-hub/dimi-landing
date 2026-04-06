@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
-import { createSession, getSessions, getSessionById, createCreator, getCreators, getCreatorByName, addToWaitlist, getWaitlist, createFile, getFilesByUserId } from "../db";
+import { createSession, getSessions, getSessionById, createCreator, getCreators, getCreatorByName, addToWaitlist, getWaitlist, getWaitlistByEmail, createFile, getFilesByUserId } from "../db";
 import { storagePut, storageGet } from "../storage";
+import { sendWaitlistConfirmation } from "../email";
+import { notifyOwner } from "../_core/notification";
 
 export const dimiRouter = router({
   // Sessions
@@ -63,7 +65,42 @@ export const dimiRouter = router({
         name: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
-        return addToWaitlist(input);
+        // Check for duplicate
+        const existing = await getWaitlistByEmail(input.email);
+        if (existing) {
+          return {
+            success: true,
+            duplicate: true,
+            message: "You're already on the waitlist. We'll be in touch.",
+          };
+        }
+
+        // Add to database
+        const result = await addToWaitlist(input);
+        if (!result) {
+          return {
+            success: false,
+            duplicate: false,
+            message: "Something went wrong. Please try again.",
+          };
+        }
+
+        // Send confirmation email (non-blocking)
+        sendWaitlistConfirmation(input.email).catch((err) =>
+          console.warn("[Waitlist] Failed to send confirmation:", err)
+        );
+
+        // Notify owner (non-blocking)
+        notifyOwner({
+          title: "New Waitlist Signup",
+          content: `${input.email} just joined the DIMI waitlist.`,
+        }).catch(() => {});
+
+        return {
+          success: true,
+          duplicate: false,
+          message: "You're in. Check your inbox.",
+        };
       }),
     list: protectedProcedure.query(async () => {
       return getWaitlist();
