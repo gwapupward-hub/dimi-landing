@@ -7,8 +7,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { trpc } from "@/lib/trpc";
+import { resetMetadata } from "@/lib/metadata";
 
 export default function Home() {
+  // Reset metadata to defaults on mount
+  useEffect(() => {
+    resetMetadata();
+  }, []);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailValue, setEmailValue] = useState("");
   const [submitting, setSubmitting] = useState(false);

@@ -57,3 +57,13 @@
 - [x] Button changes to "✓ You're in" and input disables on success
 - [x] Write tests for waitlist endpoint
 - [x] Verify all existing pages still functional
+
+## Favicon & Link Sharing Setup
+- [x] Generate favicon formats (16x16, 32x32, 180x180, 192x192, 512x512, multi-size .ico)
+- [x] Create site.webmanifest for PWA support
+- [x] Implement favicon links in HTML head
+- [x] Add Open Graph meta tags (og:title, og:description, og:image, og:url, og:type)
+- [x] Add Twitter Card meta tags (twitter:card, twitter:title, twitter:description, twitter:image)
+- [x] Create dynamic metadata generation for pages
+- [x] Test link previews on Twitter/X, Facebook, and iMessage
+- [x] Document favicon update instructions

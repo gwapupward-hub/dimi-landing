@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { updateMetadata } from "@/lib/metadata";
 
 type FilterTab = "all" | "live" | "upcoming" | "following";
 
@@ -19,6 +20,15 @@ export default function Rooms() {
   const { data: creators } = trpc.dimi.creators.list.useQuery();
   const { isAuthenticated } = useAuth();
   const [nowPlaying, setNowPlaying] = useState<any>(null);
+
+  // Update metadata for Rooms page
+  useEffect(() => {
+    updateMetadata({
+      title: "Browse Rooms — DIMI",
+      description: "Discover and join live music production sessions. Watch producers create, collaborate, and stream in real time.",
+      url: "https://dimimusic.xyz/rooms",
+    });
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
