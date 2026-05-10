@@ -52,11 +52,14 @@ export type InsertSession = typeof sessions.$inferInsert;
 export const creators = mysqlTable("creators", {
   id: int("id").autoincrement().primaryKey(),
   name: varchar("name", { length: 255 }).notNull().unique(),
+  handle: varchar("handle", { length: 32 }).unique(),
   genre: varchar("genre", { length: 100 }),
   followers: int("followers").default(0).notNull(),
   isLive: int("isLive").default(0).notNull(),
   bio: text("bio"),
   avatarUrl: varchar("avatarUrl", { length: 500 }),
+  walletAddress: varchar("walletAddress", { length: 64 }),
+  gwapScore: int("gwapScore"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -206,3 +209,55 @@ export const releaseContributors = mysqlTable("release_contributors", {
 
 export type ReleaseContributor = typeof releaseContributors.$inferSelect;
 export type InsertReleaseContributor = typeof releaseContributors.$inferInsert;
+
+/**
+ * DIMI Session Events table - persisted log of live-session activity for replay/analytics.
+ * The WebSocket layer is the source of truth for real-time state; this table records important events.
+ */
+export const sessionEvents = mysqlTable("session_events", {
+  id: int("id").autoincrement().primaryKey(),
+  sessionId: int("sessionId").notNull(),
+  userId: int("userId"),
+  type: varchar("type", { length: 32 }).notNull(),
+  payload: text("payload"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type SessionEvent = typeof sessionEvents.$inferSelect;
+export type InsertSessionEvent = typeof sessionEvents.$inferInsert;
+
+/**
+ * DIMI Stems table - uploaded stems / beats per session, backed by S3.
+ */
+export const stems = mysqlTable("stems", {
+  id: int("id").autoincrement().primaryKey(),
+  sessionId: int("sessionId").notNull(),
+  uploadedBy: int("uploadedBy").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  s3Key: varchar("s3Key", { length: 512 }).notNull(),
+  s3Url: varchar("s3Url", { length: 1024 }).notNull(),
+  fileType: varchar("fileType", { length: 64 }).notNull(),
+  fileSizeBytes: int("fileSizeBytes").notNull(),
+  durationSeconds: int("durationSeconds"),
+  isActive: int("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Stem = typeof stems.$inferSelect;
+export type InsertStem = typeof stems.$inferInsert;
+
+/**
+ * DIMI Attestations table - on-chain proof of a release split sheet.
+ * SHA-256 hash of the exported PDF + optional Solana tx signature for the memo anchor.
+ */
+export const attestations = mysqlTable("attestations", {
+  id: int("id").autoincrement().primaryKey(),
+  releaseId: int("releaseId").notNull(),
+  documentHash: varchar("documentHash", { length: 64 }).notNull(),
+  txSignature: varchar("txSignature", { length: 128 }),
+  network: varchar("network", { length: 16 }).default("mainnet-beta").notNull(),
+  attestedAt: timestamp("attestedAt").defaultNow().notNull(),
+});
+
+export type Attestation = typeof attestations.$inferSelect;
+export type InsertAttestation = typeof attestations.$inferInsert;

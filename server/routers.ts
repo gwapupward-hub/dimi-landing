@@ -6,6 +6,10 @@ import { authRouter } from "./routers/auth";
 import { profileRouter } from "./routers/profile";
 import { roomRouter } from "./routers/room";
 import { releaseRouter } from "./routers/release";
+import { uploadsRouter } from "./routers/uploads";
+import { profilesRouter } from "./routers/profiles";
+import { walletRouter } from "./routers/wallet";
+import { attestationRouter } from "./routers/attestation";
 import { publicProcedure, router } from "./_core/trpc";
 
 export const appRouter = router({
@@ -25,6 +29,10 @@ export const appRouter = router({
   room: roomRouter,
   release: releaseRouter,
   dimi: dimiRouter,
+  uploads: uploadsRouter,
+  profiles: profilesRouter,
+  wallet: walletRouter,
+  attestation: attestationRouter,
 });
 
 export type AppRouter = typeof appRouter;
