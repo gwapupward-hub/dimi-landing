@@ -1,9 +1,18 @@
-import { useEffect } from 'react';
-import { useLocation } from 'wouter';
+import { useEffect, useMemo } from 'react';
+import { useLocation, useSearch } from 'wouter';
 import SharedNav from '@/components/SharedNav';
+import { useRoomSocket } from '@/hooks/useRoomSocket';
+import { LiveBadge } from '@/components/session/LiveBadge';
+import { ViewerCount } from '@/components/session/ViewerCount';
 
 export default function Session() {
   const [, setLocation] = useLocation();
+  const search = useSearch();
+  const roomId = useMemo(() => new URLSearchParams(search).get('room') ?? '', [search]);
+  const { state: liveState, goLive, endLive } = useRoomSocket({
+    roomId,
+    displayName: 'Guest',
+  });
 
   useEffect(() => {
     // ── STEMS ──
@@ -185,6 +194,42 @@ export default function Session() {
   return (
     <>
       <SharedNav />
+      {roomId && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+            padding: '8px 20px',
+            borderBottom: '1px solid rgba(46,230,46,0.08)',
+            background: 'rgba(8,8,6,0.95)',
+            backdropFilter: 'blur(20px)',
+          }}
+        >
+          <LiveBadge isLive={liveState.isLive} />
+          <ViewerCount count={liveState.viewerCount} />
+          <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 10, color: '#6b6a60', letterSpacing: '0.08em' }}>
+            ROOM {roomId} · {liveState.connected ? 'CONNECTED' : 'OFFLINE'}
+          </span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+            {liveState.isLive ? (
+              <button
+                onClick={endLive}
+                style={{ fontFamily: "'Geist Mono', monospace", fontSize: 10, padding: '4px 10px', borderRadius: 4, border: '1px solid rgba(255,77,77,0.3)', background: 'rgba(255,77,77,0.1)', color: '#FF4D4D', cursor: 'pointer', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+              >
+                End Live
+              </button>
+            ) : (
+              <button
+                onClick={goLive}
+                style={{ fontFamily: "'Geist Mono', monospace", fontSize: 10, padding: '4px 10px', borderRadius: 4, border: '1px solid rgba(46,230,46,0.3)', background: 'rgba(46,230,46,0.1)', color: '#2EE62E', cursor: 'pointer', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+              >
+                Go Live
+              </button>
+            )}
+          </div>
+        </div>
+      )}
       <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 56px)', overflow: 'hidden', background: 'var(--bg)' }}>
         {/* TOAST */}
       <div className="moment-toast">🎵 <strong>Ari Lennox</strong> just joined the session as a collaborator</div>
